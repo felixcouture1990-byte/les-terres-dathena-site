@@ -1,394 +1,162 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Les Terres d'Athéna — Serveur Minecraft Grèce Antique</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-obsidian: #0b0d12;
-      --bg-marble-card: rgba(20, 25, 36, 0.92);
-      --gold-primary: #d4af37;
-      --gold-bright: #f5d77f;
-      --gold-dark: #8a6d1b;
-      --ivory: #f4efe6;
-      --stone-text: #cfc7b8;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg-obsidian);
-      background-image:
-        radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 55%),
-        radial-gradient(circle at 15% 85%, rgba(27, 73, 101, 0.2) 0%, transparent 50%),
-        linear-gradient(180deg, #090b10 0%, #111520 50%, #090b10 100%);
-      color: var(--ivory);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-    .greek-meander {
-      height: 14px;
-      width: 100%;
-      background-color: #161b26;
-      background-image: repeating-linear-gradient(
-        90deg,
-        var(--gold-primary) 0px,
-        var(--gold-primary) 12px,
-        transparent 12px,
-        transparent 16px,
-        var(--gold-dark) 16px,
-        var(--gold-dark) 20px,
-        transparent 20px,
-        transparent 24px
-      );
-      border-top: 1px solid rgba(212, 175, 55, 0.45);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.45);
-    }
-    header {
-      background: rgba(11, 13, 18, 0.92);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 14px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .brand {
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 1.3rem;
-      letter-spacing: 2px;
-      color: var(--gold-bright);
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: 'Cinzel', serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--stone-text);
-      text-decoration: none;
-    }
-    .nav-links a:hover { color: var(--gold-bright); }
-    main {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 48px 24px 72px;
-    }
-    .temple-hero { text-align: center; margin-bottom: 56px; }
-    .pediment {
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-      height: 54px;
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.28), rgba(20, 25, 36, 0.95));
-      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-      border-bottom: 2px solid var(--gold-primary);
-    }
-    .entablature {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 10px 16px;
-      background: linear-gradient(90deg, #121621, #1e2433, #121621);
-      border-top: 2px solid var(--gold-primary);
-      border-bottom: 2px solid var(--gold-primary);
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      letter-spacing: 4px;
-      color: var(--gold-bright);
-      text-transform: uppercase;
-    }
-    .sanctuary-box {
-      max-width: 960px;
-      margin: 0 auto;
-      background: var(--bg-marble-card);
-      border-left: 3px solid var(--gold-dark);
-      border-right: 3px solid var(--gold-dark);
-      border-bottom: 3px solid var(--gold-primary);
-      padding: 44px 36px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
-    }
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      background: linear-gradient(180deg, #fff3c4 0%, var(--gold-primary) 55%, #9c791e 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 12px;
-    }
-    .subtitle {
-      font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      letter-spacing: 1.5px;
-      color: var(--stone-text);
-      margin-bottom: 28px;
-    }
-    .subtitle span { color: var(--gold-primary); margin: 0 8px; }
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 26px;
-    }
-    .btn-ip {
-      background: linear-gradient(180deg, #1b2232 0%, #111622 100%);
-      border: 2px solid var(--gold-primary);
-      color: var(--gold-bright);
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 14px 26px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .btn-ip:hover { background: rgba(212, 175, 55, 0.16); }
-    .btn-launcher {
-      background: linear-gradient(180deg, #f3d06b 0%, #c89d28 100%);
-      border: 2px solid #fff0b8;
-      color: #141109;
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 1rem;
-      padding: 14px 28px;
-      border-radius: 4px;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    .hero-desc { max-width: 720px; margin: 0 auto; font-size: 1.15rem; }
-    .section-title {
-      text-align: center;
-      font-family: 'Cinzel', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--gold-bright);
-      margin-bottom: 32px;
-    }
-    .section-title::after {
-      content: "◆ ─── ✦ ─── ◆";
-      display: block;
-      font-size: 0.85rem;
-      letter-spacing: 4px;
-      color: var(--gold-primary);
-      margin-top: 6px;
-    }
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-      margin-bottom: 56px;
-    }
-    .pillar-card {
-      background: var(--bg-marble-card);
-      border: 1px solid rgba(212, 175, 55, 0.38);
-      border-top: 4px solid var(--gold-primary);
-      border-radius: 4px;
-      padding: 30px 26px;
-    }
-    .pillar-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-    .pillar-card h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.3rem;
-      color: var(--gold-bright);
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-    .pillar-card p { color: var(--stone-text); margin-bottom: 14px; font-size: 1.05rem; }
-    .pillar-card ul { list-style: none; }
-    .pillar-card li {
-      padding: 6px 0 6px 22px;
-      position: relative;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.12);
-    }
-    .pillar-card li::before {
-      content: "❖";
-      position: absolute;
-      left: 0;
-      color: var(--gold-primary);
-      font-size: 0.85rem;
-    }
-    .ranks-strip {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 56px;
-    }
-    .rank-badge {
-      background: linear-gradient(180deg, rgba(26, 33, 48, 0.95), rgba(14, 18, 27, 0.95));
-      border: 1px solid var(--gold-primary);
-      padding: 12px 22px;
-      border-radius: 3px;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 1.5px;
-      color: var(--gold-bright);
-      text-transform: uppercase;
-    }
-    .rank-badge span {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-transform: none;
-      color: var(--stone-text);
-    }
-    footer {
-      text-align: center;
-      padding: 28px 20px;
-      background: #080a0e;
-      border-top: 1px solid rgba(212, 175, 55, 0.3);
-      font-family: 'Cinzel', serif;
-      font-size: 0.88rem;
-      letter-spacing: 1.5px;
-      color: var(--stone-text);
-    }
-    footer strong { color: var(--gold-primary); }
-    #toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #141923;
-      border: 2px solid var(--gold-bright);
-      color: var(--gold-bright);
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      padding: 14px 22px;
-      border-radius: 4px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 200;
-    }
-    #toast.show { opacity: 1; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Les Terres d'Athéna — Serveur Minecraft 26.3 (100 % Farm-to-Win)</title>
+<style>
+:root {
+  --bg: #0c1018;
+  --card: #151c29;
+  --accent: #e5b84b;
+  --accent-hover: #f3ca63;
+  --text: #f3f5f8;
+  --muted: #a6b0c3;
+  --border: #263147;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: radial-gradient(circle at top, #1b2436 0%, var(--bg) 65%);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 980px; margin: 0 auto; padding: 40px 20px 70px; }
+header {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(21, 28, 41, 0.88);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 32px;
+}
+.badge {
+  display: inline-block;
+  background: rgba(229, 184, 75, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(229, 184, 75, 0.4);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+h1 { font-size: 2.4rem; margin-bottom: 12px; color: #ffffff; }
+.subtitle { color: var(--muted); max-width: 680px; margin: 0 auto 24px; }
+.ip-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #0d121c;
+  border: 1px solid var(--border);
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-family: monospace;
+  font-size: 1.05rem;
+}
+.ip-box button {
+  background: var(--border);
+  color: var(--text);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: #11151e;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 14px 26px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+}
+.card h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; }
+.card p { color: var(--muted); font-size: 0.96rem; }
+.ranks {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+.ranks h2 { color: var(--accent); margin-bottom: 12px; }
+.rank-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.rank-pill {
+  background: #0d121c;
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="nav-container">
-      <a href="#" class="brand">🏛️ Les Terres d'Athéna</a>
-      <ul class="nav-links">
-        <li><a href="#sanctuaire">Sanctuaire</a></li>
-        <li><a href="#piliers">Piliers</a></li>
-        <li><a href="#grades">Grades</a></li>
-        <li><a href="#launcher">AthenaLauncher</a></li>
-      </ul>
-    </div>
-    <div class="greek-meander"></div>
-  </header>
-
-  <main>
-    <section id="sanctuaire" class="temple-hero">
-      <div class="pediment"></div>
-      <div class="entablature">✦ Sanctuaire de l'Olympe • Serveur Minecraft ✦</div>
-      <div class="sanctuary-box">
-        <h1>Les Terres d'Athéna</h1>
-        <p class="subtitle">
-          Serveur Minecraft Grèce Antique <span>•</span> Arclight 1.21.11 <span>•</span> 100% Farm-to-Win
-        </p>
-        <div class="hero-actions">
-          <button class="btn-ip" onclick="copyIP()">⚔️ IP : les-terres-de-athena.mcsh.gg</button>
-          <a id="launcher" class="btn-launcher" href="https://github.com/felixcouture1990-byte/les-terres-dathena-site/releases/download/v1.0/AthenaLauncher-Windows.zip">
-            ⚡ Télécharger AthenaLauncher
-          </a>
-        </div>
-        <p class="hero-desc">
-          Forge ton destin à la force de ton farm, élève-toi parmi les mortels pour débloquer tes grades gratuits et rejoins l'arène des dieux avec ton compte officiel et <strong>AthenaLauncher</strong>.
-        </p>
-      </div>
-    </section>
-
-    <section id="piliers">
-      <h2 class="section-title">Les Piliers du Royaume</h2>
-      <div class="pillars-grid">
-        <article class="pillar-card">
-          <span class="pillar-icon">👑</span>
-          <h2>Grades &amp; Progression</h2>
-          <p>Cinq grades sacrés débloqués uniquement en jouant et en farmant :</p>
-          <ul>
-            <li>Ascension : Villageois, Baron, Roi</li>
-            <li>Rang suprême : Dieu &amp; Olympien</li>
-            <li>Avantages et commandes progressives (/grade)</li>
-          </ul>
-        </article>
-
-        <article class="pillar-card">
-          <span class="pillar-icon">⛏️</span>
-          <h2>Économie &amp; Mine</h2>
-          <p>Un sanctuaire conçu pour l'équilibre et le jeu équitable :</p>
-          <ul>
-            <li>100% Farm-to-Win sans avantage payant</li>
-            <li>Mine auto-régénérante (AthenaMine)</li>
-            <li>Agora (/shop), quêtes et hôtel des ventes</li>
-          </ul>
-        </article>
-
-        <article class="pillar-card">
-          <span class="pillar-icon">🛡️</span>
-          <h2>AthenaLauncher</h2>
-          <p>Le lanceur officiel forgé pour les héros d'Athéna :</p>
-          <ul>
-            <li>Connexion officielle sécurisée Microsoft</li>
-            <li>Allocation de RAM et suivi de progression</li>
-            <li>Prêt pour Forge et les mods 1.21.11</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="grades">
-      <h2 class="section-title">La Voie de l'Olympe</h2>
-      <div class="ranks-strip">
-        <div class="rank-badge">I. Villageois <span>Citoyen d'Athènes</span></div>
-        <div class="rank-badge">II. Baron <span>Seigneur des Terres</span></div>
-        <div class="rank-badge">III. Roi <span>Souverain de la Cité</span></div>
-        <div class="rank-badge">IV. Dieu <span>Élu du Panthéon</span></div>
-        <div class="rank-badge">V. Olympien <span>Sommet de l'Olympe</span></div>
-      </div>
-    </section>
-  </main>
-
-  <div class="greek-meander"></div>
-  <footer>
-    <strong>les-terre-de-athena.be</strong> • Serveur Minecraft Les Terres d'Athéna • Tous droits réservés
-  </footer>
-
-  <div id="toast">⚔️ Adresse IP copiée : les-terres-de-athena.mcsh.gg</div>
-
-  <script>
-    function copyIP() {
-      navigator.clipboard.writeText("les-terres-de-athena.mcsh.gg").then(() => {
-        const toast = document.getElementById("toast");
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 2600);
-      });
-    }
-  </script>
+<div class="container">
+<header>
+  <div class="badge">Minecraft 26.3 • 100 % Farm-to-Win</div>
+  <h1>Les Terres d'Athéna</h1>
+  <p class="subtitle">
+    Serveur inspiré de la Grèce antique : progresse par le farm, débloque tes grades en jeu,
+    exploite la mine auto-régénérante et rejoins l'aventure avec le lanceur officiel.
+  </p>
+  <div class="ip-box">
+    <span id="server-ip">les-terres-de-athena.mcsh.gg</span>
+    <button type="button" onclick="copyIp()">Copier l'IP</button>
+  </div>
+  <div>
+    <a
+      class="btn-primary"
+      href="https://github.com/felixcouture1990-byte/les-terres-dathena-site/releases/download/v1.0/athena-launcher.exe"
+    >
+      Télécharger AthenaLauncher (26.3 — .exe)
+    </a>
+  </div>
+</header>
+<section class="grid">
+  <div class="card">
+    <h2>100 % Farm-to-Win</h2>
+    <p>Tout se gagne en jouant, en minant, en vendant via /shop et en progressant en jeu.</p>
+  </div>
+  <div class="card">
+    <h2>Mine Auto-Régénérante</h2>
+    <p>Une mine dédiée qui se régénère automatiquement pour farm en continu.</p>
+  </div>
+  <div class="card">
+    <h2>Lanceur Version 26.3</h2>
+    <p>Télécharge <strong>athena-launcher.exe</strong> configuré en <strong>26.3</strong>.</p>
+  </div>
+</section>
+<section class="ranks">
+  <h2>Grades progressifs en jeu</h2>
+  <div class="rank-list">
+    <span class="rank-pill">Villageois</span>
+    <span class="rank-pill">Baron</span>
+    <span class="rank-pill">Roi</span>
+    <span class="rank-pill">Dieu</span>
+    <span class="rank-pill">Olympien</span>
+  </div>
+</section>
+</div>
+<script>
+function copyIp() {
+  const ip = document.getElementById("server-ip").textContent;
+  navigator.clipboard.writeText(ip).then(() => alert("IP copiée : " + ip));
+}
+</script>
 </body>
 </html>
